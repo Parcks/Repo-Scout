@@ -34,8 +34,14 @@ class GitHubScout(Findable):
         url = GitHubScout.ENDPOINT_URL + repo_owner + "/" + repo_name + GitHubScout.ENDPOINT_URL_SUFFIX
         self.find_in_request_contents(url, file)
 
-    def find_in_request_contents(self, url):
+    def find_in_request_contents(self, url, file):
         request = requests.get(url)
         if request.status_code == 200:
             result = request.json()
             for entry in result:
+                if result.type == "file" and result.name == file:
+                    return result.download_url
+                elif result.type == "dir":
+                    return self.find_in_request_contents(result.url, file)
+                else:
+                    return None

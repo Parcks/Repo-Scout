@@ -46,7 +46,7 @@ class Findable(object):
         """
         Searches the file in the contents of the api url
         :param url: The url whose contents should be found
-        :param file: The file to find
+        :param file: The file to find in the contents
         :return: An url to the contents of the file
         """
         pass
