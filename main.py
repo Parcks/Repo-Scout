@@ -23,4 +23,7 @@ from service.repo_scout import RepoScout
 import sys
 
 if __name__ == "__main__":
-    scout = RepoScout(sys.argv[1:])
+    if len(sys.argv) < 5:
+        raise ValueError("Insufficient arguments")
+    scout = RepoScout(sys.argv[1])
+    print(scout.find(sys.argv[2], sys.argv[3], sys.argv[4]))

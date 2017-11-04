@@ -24,24 +24,23 @@ import requests
 
 
 class GitHubScout(Findable):
+    ENDPOINT_URL = "https://api.github.com/repos/"
+    ENDPOINT_URL_SUFFIX = "/contents"
+
     def __init__(self):
         super(GitHubScout, self).__init__()
-        ENDPOINT_URL = "https://api.github.com/repos/"
-        ENDPOINT_URL_SUFFIX = "/contents"
-
 
     def find(self, repo_owner, repo_name, file):
         url = GitHubScout.ENDPOINT_URL + repo_owner + "/" + repo_name + GitHubScout.ENDPOINT_URL_SUFFIX
-        self.find_in_request_contents(url, file)
+        return self.find_in_request_contents(url, file)
 
     def find_in_request_contents(self, url, file):
         request = requests.get(url)
         if request.status_code == 200:
             result = request.json()
             for entry in result:
-                if result.type == "file" and result.name == file:
-                    return result.download_url
-                elif result.type == "dir":
-                    return self.find_in_request_contents(result.url, file)
-                else:
-                    return None
+                if entry["type"] == "file" and entry["name"] == file:
+                    return entry["download_url"]
+                elif entry["type"] == "dir":
+                    return self.find_in_request_contents(entry["url"], file)
+        return None

@@ -33,4 +33,7 @@ class RepoScout:
         self._create_scout(repo_provider)
 
     def _create_scout(self, repo_provider):
-        self.scout = ScoutFactory(repo_provider)
+        self.scout = ScoutFactory.create(repo_provider)
+
+    def find(self, repo_owner, repo_name, file):
+        return self.scout.find(repo_owner, repo_name, file)
