@@ -20,10 +20,35 @@ Setarit - parcks[at]setarit.com
 """
 from __future__ import absolute_import
 from service.repo_scout import RepoScout
-import sys
+import sys, argparse
+
+
+def create_parser():
+    parser = argparse.ArgumentParser(description="Find a file in a VCS", prog="RepoScout")
+    parser.add_argument("-p, --provider", dest="provider", help="The name of the VCS provider (Default: GitHub)",
+                        choices=["GitHub"], default="GitHub", metavar='PROV')
+    parser.add_argument("-o, --owner", dest="repo_owner", help="The name of the owner of the repository",
+                        required=True, metavar="OWNER")
+    parser.add_argument("-n, --name", dest="repo_name", help="The name of the repository to search in",
+                        required=True, metavar="NAME")
+    parser.add_argument("-m, --method", dest="method",
+                        help="Indicates if the file should be searched in a directory or just retrieve the first"
+                             " occurrence (Default: First)",
+                        choices=["InDirectory", "First"], default="First", metavar="METHOD")
+    parser.add_argument("-f, --file", dest="file", help="The name of the file to find",
+                        required=True, metavar="FILE")
+    parser.add_argument("-d, --directory", dest="directory_path", metavar="DIR",
+                        help="The path in the repository where the file should be searched")
+    return parser
 
 if __name__ == "__main__":
-    if len(sys.argv) < 5:
-        raise ValueError("Insufficient arguments")
-    scout = RepoScout(sys.argv[1])
-    print(scout.find(sys.argv[2], sys.argv[3], sys.argv[4]))
+    parser = create_parser()
+    arguments = parser.parse_args()
+    if arguments.method == "InDirectory" and arguments.directory_path is None:
+        parser.error("Directory path is required when searching in a directory")
+    scout = RepoScout(arguments.provider)
+    if arguments.method == "InDirectory":
+        result = scout.find_in_directory(arguments.repo_owner, arguments.repo_name, arguments.directory_path, arguments.file)
+    else:
+        result = scout.find(arguments.repo_owner, arguments.repo_name, arguments.file)
+    print(result)

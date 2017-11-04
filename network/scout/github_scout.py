@@ -44,3 +44,7 @@ class GitHubScout(Findable):
                 elif entry["type"] == "dir":
                     return self.find_in_request_contents(entry["url"], file)
         return None
+
+    def find_in_directory(self, repo_owner, repo_name, directory_path, file):
+        url = GitHubScout.ENDPOINT_URL+repo_owner+"/"+repo_name+GitHubScout.ENDPOINT_URL_SUFFIX+"/"+directory_path
+        return self.find_in_request_contents(url, file)

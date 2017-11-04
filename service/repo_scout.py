@@ -37,3 +37,6 @@ class RepoScout:
 
     def find(self, repo_owner, repo_name, file):
         return self.scout.find(repo_owner, repo_name, file)
+
+    def find_in_directory(self, repo_owner, repo_name, directory_path, file):
+        return self.scout.find_in_directory(repo_owner, repo_name, directory_path, file)

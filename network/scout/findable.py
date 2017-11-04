@@ -36,7 +36,7 @@ class Findable(object):
         :type repo_owner: str
         :type repo_name: str
         :type file: str
-        :return: The results represented as JSON
+        :return: The url where the file contents can be downloaded
         :rtype: str
         """
         pass
@@ -48,5 +48,22 @@ class Findable(object):
         :param url: The url whose contents should be found
         :param file: The file to find in the contents
         :return: An url to the contents of the file
+        """
+        pass
+
+    @abstractmethod
+    def find_in_directory(self, repo_owner, repo_name, directory_path, file):
+        """
+        Searches the file in a directory in a repository
+        :param repo_owner: The name of the owner of the repository
+        :param repo_name: The name of the repository
+        :param directory_path: The directory path to search in
+        :param file: The file to search
+        :type repo_name: str
+        :type repo_owner: str
+        :type directory_path: str
+        :type file: str
+        :return: The url where the file contents can be downloaded
+        :rtype: str
         """
         pass
