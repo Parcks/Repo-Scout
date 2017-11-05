@@ -19,13 +19,3 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 Setarit - parcks[at]setarit.com
 """
 from __future__ import absolute_import
-from network.scout.github_scout import GitHubScout
-
-
-class ScoutFactory(object):
-    @staticmethod
-    def create(provider):
-        if provider.lower() == "github":
-            return GitHubScout()
-        else:
-            raise NameError("The name "+provider+" is unknown")

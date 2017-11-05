@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 Setarit - parcks[at]setarit.com
 """
 from __future__ import absolute_import
-from service.repo_scout import RepoScout
-import sys, argparse
+
+import argparse
+from .service.repo_scout import RepoScout
 
 
 def create_parser():
@@ -41,14 +42,19 @@ def create_parser():
                         help="The path in the repository where the file should be searched")
     return parser
 
-if __name__ == "__main__":
+
+def run():
     parser = create_parser()
     arguments = parser.parse_args()
     if arguments.method == "InDirectory" and arguments.directory_path is None:
         parser.error("Directory path is required when searching in a directory")
     scout = RepoScout(arguments.provider)
     if arguments.method == "InDirectory":
-        result = scout.find_in_directory(arguments.repo_owner, arguments.repo_name, arguments.directory_path, arguments.file)
+        result = scout.find_in_directory(arguments.repo_owner, arguments.repo_name, arguments.directory_path,
+                                         arguments.file)
     else:
         result = scout.find(arguments.repo_owner, arguments.repo_name, arguments.file)
     print(result)
+
+if __name__ == "__main__":
+    run()

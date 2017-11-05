@@ -19,8 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 Setarit - parcks[at]setarit.com
 """
 from __future__ import absolute_import
-from network.scout.findable import Findable
+
 import requests
+
+from src.network.scout.findable import Findable
 
 
 class GitHubScout(Findable):
@@ -38,12 +40,15 @@ class GitHubScout(Findable):
         request = requests.get(url)
         if request.status_code == 200:
             result = request.json()
-            for entry in result:
-                if entry["type"] == "file" and entry["name"] == file:
-                    return entry["download_url"]
-                elif entry["type"] == "dir":
-                    return self.find_in_request_contents(entry["url"], file)
+            return self._analyse_contents(result, file)
         return None
+
+    def _analyse_contents(self, contents, file):
+        for entry in contents:
+            if entry["type"] == "file" and entry["name"] == file:
+                return entry["download_url"]
+            elif entry["type"] == "dir":
+                return self.find_in_request_contents(entry["url"], file)
 
     def find_in_directory(self, repo_owner, repo_name, directory_path, file):
         url = GitHubScout.ENDPOINT_URL+repo_owner+"/"+repo_name+GitHubScout.ENDPOINT_URL_SUFFIX+"/"+directory_path

@@ -35,11 +35,11 @@ https://raw.githubusercontent.com/Parcks/plugins/master/debian/Laravel.ppl
 ##### Find in directory
 - Example 1: One level deep
 ```sh
-jvalck@Setarit-DTP:~/repo_scout$ python main.py -o Parcks -n plugins -f Laravel.ppl -m InDirectory -d debian
+jvalck@Setarit-DTP:~/repo_scout$ rscout -o Parcks -n plugins -f Laravel.ppl -m InDirectory -d debian
 https://raw.githubusercontent.com/Parcks/plugins/master/debian/Laravel.ppl
 ```
 - Example 2: two levels deep
 ```sh
-jvalck@Setarit-DTP:~/repo_scout$ python main.py -o Parcks -n core -f user_input.py -m InDirectory -d src/cli
+jvalck@Setarit-DTP:~/repo_scout$ rscout -o Parcks -n core -f user_input.py -m InDirectory -d src/cli
 https://raw.githubusercontent.com/Parcks/core/master/src/cli/user_input.py
 ```
