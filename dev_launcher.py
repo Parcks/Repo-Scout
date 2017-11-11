@@ -20,7 +20,8 @@ Setarit - parcks[at]setarit.com
 """
 from __future__ import absolute_import
 
-from src.cli import run
+from src.launcher import run
 
 if __name__ == "__main__":
     run()
+

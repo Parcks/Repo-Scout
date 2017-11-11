@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
 Repo Scout
 Copyright (C) 2017  JValck - Setarit
@@ -21,7 +22,8 @@ Setarit - parcks[at]setarit.com
 from __future__ import absolute_import
 
 import argparse
-from .service.repo_scout import RepoScout
+
+from src.service.repo_scout import RepoScout
 
 
 def create_parser():

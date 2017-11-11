@@ -42,7 +42,7 @@ setup(
     keywords='Parcks API Scout Find Repository',
     entry_points={
         'console_scripts': [
-            'rscout = src.cli:run',
+            'rscout = src.launcher:run',
         ]
     },
     classifiers=[
