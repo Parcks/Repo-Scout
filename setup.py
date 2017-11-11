@@ -30,7 +30,7 @@ setup(
     name='Repo Scout',
     version='1.0.0',
     description="Searches for a file in a VCS",
-    long_description=open('README.md').read(),
+    long_description=open('README.rst').read(),
     author="Setarit",
     author_email='parcks@setarit.com',
     maintainer='JValck',
