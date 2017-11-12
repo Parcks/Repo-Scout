@@ -19,9 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 Setarit - parcks[at]setarit.com
 """
 from __future__ import absolute_import
-
-from src.launcher import run
+import sys
+from src.application.cli import Cli
 
 if __name__ == "__main__":
-    run()
+    cli = Cli()
+    cli.run(sys.argv[1:])
 
