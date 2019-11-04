@@ -23,7 +23,7 @@ from setuptools import setup, find_packages
 
 install_requires = [
     'mock==2.0.0',
-    'requests==2.13.0',
+    'requests==2.20.0',
 ]
 
 setup(
